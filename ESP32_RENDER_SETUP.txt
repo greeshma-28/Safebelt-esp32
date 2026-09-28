@@ -1,0 +1,18 @@
+SafeBelt ESP32 + Render setup
+
+1. Deploy this project to Render as a Python web service. Start command: gunicorn app:app
+2. Add Render environment variables:
+   SECRET_KEY=your-long-secret
+   SAFEBELT_DEVICE_TOKEN=choose-a-secret-device-token
+   SAFEBELT_DEVICE_USERNAME=the-SafeBelt-login-username-used-by-the-belt
+   Optional real SMS:
+   TWILIO_ACCOUNT_SID=...
+   TWILIO_AUTH_TOKEN=...
+   TWILIO_FROM_NUMBER=...
+3. Dashboard browser location is saved only when the dashboard requests location. The ESP32 /api/sos endpoint can use those coordinates until NEO-6M GPS is connected.
+4. When NEO-6M is available, ESP32 should send latitude/longitude in /api/sos and source=GPS.
+5. ESP32 POST: https://YOUR-RENDER-DOMAIN/api/sos
+   Header: X-Device-Token: YOUR_DEVICE_TOKEN
+   JSON: {"source":"esp32-manual","battery":100} or include latitude/longitude.
+6. This version keeps /sos for the existing browser test.
+7. Without Twilio credentials, SMS is logged as SIMULATED; with valid Twilio credentials, real SMS is sent.

@@ -1,0 +1,25 @@
+SafeBelt - Mobile / Device Location
+
+This version uses the browser/device Geolocation API instead of a fixed demo coordinate or ipapi.co.
+
+To use your MOBILE PHONE location:
+1. Start the Flask server on the laptop:
+   python app.py
+2. Connect the phone and laptop to the same Wi-Fi/mobile hotspot.
+3. Find the laptop's LAN IP, for example 10.244.212.53.
+4. On the PHONE, open:
+   http://10.244.212.53:5000
+5. Log in and open the Dashboard.
+6. Allow Location permission when the phone asks.
+7. The dashboard will show the phone's latitude and longitude.
+8. Tap "Use My Device Location" to refresh it.
+9. "TEST EMERGENCY" sends the phone coordinates to /sos and saves them in SQLite.
+
+Important:
+- If the dashboard is opened on the LAPTOP, the browser requests the laptop/browser device location.
+- If it is opened on the PHONE, it requests the PHONE location.
+- The current version does not continuously track the device.
+- NEO-6M GPS can be integrated later by sending source="GPS" with latitude/longitude from the ESP32.
+- No ipapi.co or fixed demo coordinate is used for the location.
+
+If Chrome blocks location on an HTTP LAN address, use the browser/device location permission settings or open the dashboard on the phone and allow location. For production deployment, HTTPS is recommended for browser geolocation.
